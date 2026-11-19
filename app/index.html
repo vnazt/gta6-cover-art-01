@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Vice Cover Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-star" aria-hidden="true">&#9733;</span>
+    <div class="brand-text">
+      <h1>Neon Vice <span>Cover Studio</span></h1>
+      <p>Your photos. Your caption. One poster-worthy cover.</p>
+    </div>
+  </div>
+  <div class="topbar-badge">100% offline &middot; photos never leave this machine</div>
+</header>
+
+<main class="workspace">
+  <section class="stage" id="stage">
+    <div class="canvas-frame">
+      <canvas id="previewCanvas" width="1120" height="630"></canvas>
+      <div class="drop-hint" id="dropHint">Drop photos anywhere to add them</div>
+    </div>
+    <p class="stage-tip">Tip: click a panel to select it, drag inside it to reposition the photo, scroll to zoom.</p>
+  </section>
+
+  <aside class="controls">
+    <section class="panel-block">
+      <h2>Layout</h2>
+      <div class="chip-row" id="layoutChips"></div>
+      <label class="toggle-row">
+        <input type="checkbox" id="spreadToggle">
+        <span>Spread one photo across all panels</span>
+      </label>
+    </section>
+
+    <section class="panel-block">
+      <h2>Photos</h2>
+      <div class="photo-actions">
+        <label class="file-button" for="photoInput">Add photos</label>
+        <input type="file" id="photoInput" accept="image/*" multiple hidden>
+        <button type="button" class="ghost-button" id="samplePhotosBtn">Use sample photos</button>
+      </div>
+      <div class="thumb-strip" id="thumbStrip"></div>
+      <p class="selected-label" id="selectedPanelLabel">Panel 1 selected</p>
+      <label class="slider-row">
+        <span>Panel zoom</span>
+        <input type="range" id="zoomRange" min="1" max="4" step="0.01" value="1">
+      </label>
+    </section>
+
+    <section class="panel-block">
+      <h2>Colour grade</h2>
+      <div class="chip-row" id="gradeChips"></div>
+      <label class="slider-row">
+        <span>Grade strength</span>
+        <input type="range" id="gradeRange" min="0" max="1" step="0.01" value="0.85">
+      </label>
+    </section>
+
+    <section class="panel-block">
+      <h2>Lettering</h2>
+      <label class="text-row">
+        <span>Kicker</span>
+        <input type="text" id="kickerInput" value="WELCOME BACK TO" maxlength="40">
+      </label>
+      <label class="text-row">
+        <span>Script word</span>
+        <input type="text" id="scriptInput" value="Neon" maxlength="24">
+      </label>
+      <label class="text-row">
+        <span>Title</span>
+        <input type="text" id="titleInput" value="VICE HEAT" maxlength="24">
+      </label>
+      <label class="toggle-row">
+        <input type="checkbox" id="badgeToggle" checked>
+        <span>Star badge</span>
+      </label>
+      <label class="toggle-row">
+        <input type="checkbox" id="grainToggle" checked>
+        <span>Film grain &amp; vignette</span>
+      </label>
+    </section>
+
+    <section class="panel-block export-block">
+      <h2>Export size</h2>
+      <div class="chip-row" id="sizeChips">
+        <button type="button" class="chip size-chip is-active" data-w="1920" data-h="1080">1920 &times; 1080</button>
+        <button type="button" class="chip size-chip" data-w="1080" data-h="1350">1080 &times; 1350</button>
+        <button type="button" class="chip size-chip" data-w="1080" data-h="1080">1080 &times; 1080</button>
+      </div>
+      <button type="button" class="export-button" id="exportBtn">Export PNG</button>
+    </section>
+  </aside>
+</main>
+
+<footer class="footbar">
+  <span>Neon Vice Cover Studio &mdash; an original fan-made tool. Not affiliated with any game publisher.</span>
+  <span>Fonts: Anton &amp; Pacifico, SIL Open Font License.</span>
+</footer>
+
+<script src="src/cover.js"></script>
+<script src="src/editor.js"></script>
+</body>
+</html>
