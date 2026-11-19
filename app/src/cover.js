@@ -275,12 +275,20 @@ function drawCoverLettering(ctx, w, h, text) {
   if (text.kicker) {
     var kickerSize = Math.max(13, w * 0.02);
     ctx.font = kickerSize + 'px "Anton", "Arial Narrow", sans-serif';
-    setCanvasLetterSpacing(ctx, Math.round(kickerSize * 0.55) + 'px');
-    ctx.shadowColor = 'rgba(5, 5, 15, 0.65)';
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetY = kickerSize * 0.14;
+    // Tighter tracking than before: at the old 0.55 spacing the centred
+    // line stretched so wide that a letter could land half over a panel
+    // gutter. 0.42 keeps the letterspaced poster look while the whole word
+    // sits comfortably inside the hero panel's width.
+    setCanvasLetterSpacing(ctx, Math.round(kickerSize * 0.42) + 'px');
+    // A soft dark halo behind the letters, not a hard offset shadow: the
+    // kicker usually sits over bright sky, and the blurred shadow keeps the
+    // cream text readable without a visible drop edge.
+    ctx.shadowColor = 'rgba(5, 5, 15, 0.85)';
+    ctx.shadowBlur = kickerSize * 0.55;
+    ctx.shadowOffsetY = kickerSize * 0.1;
     ctx.fillStyle = '#f7efdc';
     ctx.fillText(text.kicker.toUpperCase(), centreX, h * 0.085);
+    ctx.shadowBlur = 0;
     ctx.shadowOffsetY = 0;
     setCanvasLetterSpacing(ctx, '0px');
   }
