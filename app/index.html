@@ -10,96 +10,108 @@
 <header class="topbar">
   <div class="brand">
     <span class="brand-star" aria-hidden="true">&#9733;</span>
-    <div class="brand-text">
-      <h1>Neon Vice <span>Cover Studio</span></h1>
-      <p>Your photos. Your caption. One poster-worthy cover.</p>
-    </div>
+    <span class="brand-name">NEON <em>VICE</em> COVER STUDIO</span>
   </div>
-  <div class="topbar-badge">100% offline &middot; photos never leave this machine</div>
+  <span class="offline-pill">100% OFFLINE &middot; PHOTOS NEVER LEAVE THIS MACHINE</span>
 </header>
 
 <main class="workspace">
-  <section class="stage" id="stage">
-    <div class="canvas-frame">
-      <canvas id="previewCanvas" width="1120" height="630"></canvas>
-      <div class="drop-hint" id="dropHint">Drop photos anywhere to add them</div>
+  <section class="stage">
+    <div class="canvas-wrap">
+      <canvas id="preview" width="1080" height="608"></canvas>
     </div>
-    <p class="stage-tip">Tip: click a panel to select it, drag inside it to reposition the photo, scroll to zoom.</p>
+    <p class="stage-hint">Click a panel to select it &middot; drag inside it to reposition the photo &middot; scroll to zoom</p>
   </section>
 
   <aside class="controls">
-    <section class="panel-block">
+    <section class="card">
       <h2>Layout</h2>
-      <div class="chip-row" id="layoutChips"></div>
-      <label class="toggle-row">
+      <div class="btn-row" id="layoutButtons">
+        <button type="button" data-layout="hero" class="active">Hero Split</button>
+        <button type="button" data-layout="classic">Classic Five</button>
+        <button type="button" data-layout="triptych">Triptych</button>
+        <button type="button" data-layout="quad">Quad Grid</button>
+        <button type="button" data-layout="story">Cover Story</button>
+      </div>
+      <label class="switch-row">
         <input type="checkbox" id="spreadToggle">
         <span>Spread one photo across all panels</span>
       </label>
     </section>
 
-    <section class="panel-block">
+    <section class="card">
       <h2>Photos</h2>
-      <div class="photo-actions">
-        <label class="file-button" for="photoInput">Add photos</label>
-        <input type="file" id="photoInput" accept="image/*" multiple hidden>
-        <button type="button" class="ghost-button" id="samplePhotosBtn">Use sample photos</button>
+      <div class="btn-row">
+        <label class="btn primary" for="fileInput">Add photos</label>
+        <input type="file" id="fileInput" accept="image/*" multiple hidden>
+        <button type="button" class="btn" id="sampleBtn">Use sample photos</button>
       </div>
-      <div class="thumb-strip" id="thumbStrip"></div>
-      <p class="selected-label" id="selectedPanelLabel">Panel 1 selected</p>
+      <div class="thumbs" id="thumbs"></div>
+      <p class="tiny">Tip: click a thumbnail to drop that photo into the selected panel. Drag image files anywhere onto this page to add them.</p>
+    </section>
+
+    <section class="card">
+      <h2>Panel</h2>
+      <p class="panel-label" id="panelLabel">Panel 1</p>
       <label class="slider-row">
-        <span>Panel zoom</span>
-        <input type="range" id="zoomRange" min="1" max="4" step="0.01" value="1">
+        <span>Zoom</span>
+        <input type="range" id="zoomRange" min="0.5" max="4" step="0.01" value="1">
       </label>
     </section>
 
-    <section class="panel-block">
+    <section class="card">
       <h2>Colour grade</h2>
-      <div class="chip-row" id="gradeChips"></div>
+      <div class="btn-row" id="gradeButtons">
+        <button type="button" data-grade="sunset" class="active">Vice Sunset</button>
+        <button type="button" data-grade="neon">Neon Nights</button>
+        <button type="button" data-grade="golden">Golden Hour</button>
+        <button type="button" data-grade="ink">Poster Ink</button>
+        <button type="button" data-grade="clean">Clean Print</button>
+      </div>
       <label class="slider-row">
-        <span>Grade strength</span>
-        <input type="range" id="gradeRange" min="0" max="1" step="0.01" value="0.85">
+        <span>Strength</span>
+        <input type="range" id="gradeStrength" min="0" max="1" step="0.01" value="0.85">
       </label>
     </section>
 
-    <section class="panel-block">
+    <section class="card">
       <h2>Lettering</h2>
-      <label class="text-row">
+      <label class="field">
         <span>Kicker</span>
-        <input type="text" id="kickerInput" value="WELCOME BACK TO" maxlength="40">
+        <input type="text" id="kickerInput" value="WELCOME BACK TO" maxlength="42">
       </label>
-      <label class="text-row">
+      <label class="field">
         <span>Script word</span>
         <input type="text" id="scriptInput" value="Neon" maxlength="24">
       </label>
-      <label class="text-row">
+      <label class="field">
         <span>Title</span>
-        <input type="text" id="titleInput" value="VICE HEAT" maxlength="24">
+        <input type="text" id="titleInput" value="VICE HEAT" maxlength="26">
       </label>
-      <label class="toggle-row">
+      <label class="switch-row">
+        <input type="checkbox" id="grainToggle" checked>
+        <span>Film grain</span>
+      </label>
+      <label class="switch-row">
         <input type="checkbox" id="badgeToggle" checked>
         <span>Star badge</span>
       </label>
-      <label class="toggle-row">
-        <input type="checkbox" id="grainToggle" checked>
-        <span>Film grain &amp; vignette</span>
-      </label>
     </section>
 
-    <section class="panel-block export-block">
-      <h2>Export size</h2>
-      <div class="chip-row" id="sizeChips">
-        <button type="button" class="chip size-chip is-active" data-w="1920" data-h="1080">1920 &times; 1080</button>
-        <button type="button" class="chip size-chip" data-w="1080" data-h="1350">1080 &times; 1350</button>
-        <button type="button" class="chip size-chip" data-w="1080" data-h="1080">1080 &times; 1080</button>
+    <section class="card">
+      <h2>Export</h2>
+      <div class="btn-row" id="sizeButtons">
+        <button type="button" data-size="1920x1080" class="active">1920 &times; 1080</button>
+        <button type="button" data-size="1080x1350">1080 &times; 1350</button>
+        <button type="button" data-size="1080x1080">1080 &times; 1080</button>
       </div>
-      <button type="button" class="export-button" id="exportBtn">Export PNG</button>
+      <button type="button" class="btn export" id="exportBtn">EXPORT PNG</button>
     </section>
   </aside>
 </main>
 
-<footer class="footbar">
-  <span>Neon Vice Cover Studio &mdash; an original fan-made tool. Not affiliated with any game publisher.</span>
-  <span>Fonts: Anton &amp; Pacifico, SIL Open Font License.</span>
+<footer class="foot">
+  Your photos, your caption, one poster-worthy cover. Display faces: Anton and Pacifico, both under the SIL Open Font License — see app/fonts/.
 </footer>
 
 <script src="src/cover.js"></script>

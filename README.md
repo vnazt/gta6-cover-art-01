@@ -4,69 +4,71 @@
 
 # Neon Vice Cover Studio
 
-Turn your own photos and a caption into bold, multi-panel cover art in the
-spirit of a sun-drenched crime-saga poster — then export it as a print-ready
-PNG. Neon Vice Cover Studio is a fully offline web app: open it in a desktop
-browser, drop in photos, arrange the panels, pick a colour grade, letter your
-headline, and export. Nothing is uploaded, ever; every photo stays on your
-machine.
+An offline web app that turns your own photos and a caption into GTA 6-style
+multi-panel cover art — the iconic poster look with cream panel gutters, a
+Vice City sunset-or-neon colour grade, bold display lettering with a neon
+script flourish, and a one-click PNG export in the sizes people actually post.
 
-## Features
+Open the app, and a finished cover is already on screen: the four bundled
+sample photos fill the panels. Swap in your own photos, drag them into place,
+pick a grade, type your caption, export. From first click to a shareable PNG
+takes well under a minute, and nothing ever leaves your machine — the app
+makes no network requests at all.
 
-- **5 panel layouts** — Hero Split, Classic Five, Triptych, Quad Grid and
-  Cover Story, all with the genre's signature cream gutters.
-- **Any photo, placed your way** — fill the panels with several photos, or
-  spread one photo continuously across every panel. Click a panel to select
-  it, drag to reposition its photo, scroll or use the slider to zoom.
-- **5 colour grades** — gradient-map looks computed per pixel: Vice Sunset,
-  Neon Nights and Golden Hour, a posterized Poster Ink duotone, and the
-  gentle Clean Print lift. Grade strength is adjustable.
-- **Poster lettering** — a letterspaced kicker, a glowing neon script word,
-  and a big condensed headline with a sunset gradient fill, hard shadow and
-  outline, plus an original star badge and optional film grain and vignette.
-- **3 export sizes** — 1920 × 1080, 1080 × 1350 and 1080 × 1080 PNG, rendered
-  at full resolution from the same live preview you edit.
-- **Instant start** — four bundled sample photos load on first open, so a
-  finished cover is on screen before you add anything of your own.
-- **Fully offline** — static files only, no build step, no network requests.
-  Fonts and samples ship inside `app/`; photos you add are read locally in
-  the browser and never leave the machine.
+## What it does
+
+- **Five multi-panel layouts** — Hero Split, Classic Five, Triptych, Quad
+  Grid and Cover Story — drawn as printed plates with cream gutters.
+- **Any photo, placed your way** — add photos from your machine (file picker
+  or drag-and-drop anywhere on the page), click a thumbnail to drop it into
+  the selected panel, then drag inside the panel to reposition and scroll to
+  zoom. A spread mode stretches one photo continuously across every panel.
+- **Five colour grades** — Vice Sunset, Neon Nights and Golden Hour are
+  gradient-map grades (teal-to-pink, blue-to-magenta-to-cyan, amber-to-cream);
+  Poster Ink is a five-step posterized duotone; Clean Print is a gentle
+  saturation-and-contrast lift. A strength slider blends each grade to taste.
+- **Poster lettering** — a letterspaced kicker centred over the art, a neon
+  script word glowing over a big gradient-filled title with a black outline
+  and hard offset shadow, plus an original star badge ("EST. 2026"), film
+  grain and a vignette. All three text lines are editable.
+- **Exports that fit the feed** — PNG at 1920×1080, 1080×1350 or 1080×1080,
+  rendered fresh at full resolution on every export.
+- **Original throughout** — every drawing, word and layout is this project's
+  own. No Rockstar Games logos, wordmarks, artwork, characters or fonts.
 
 ## Run it
 
-Serve the `app/` folder with any static file server and open it in a desktop
-browser, for example:
+The app is plain static files under `app/` — no build step. Serve the folder
+with any static server and open it in a desktop browser, for example:
 
 ```sh
-npx serve app
-# or
-python3 -m http.server --directory app 8000
+python3 -m http.server 8080 --directory app
+# then visit http://localhost:8080
 ```
 
-Then open the printed local address. Add photos with the **Add photos**
-button or by dragging them onto the window, click a panel, drag and scroll
-to frame it, choose a layout and grade, edit the lettering, pick an export
-size, and press **Export PNG**.
+Opening `app/index.html` directly from disk works too. Photos are read
+locally with the FileReader API and are never uploaded anywhere.
 
-## Hand-in program
+## Hand it in
 
-`main.ts` (Node 22, standard library only) copies `app/` and `screenshots/`
-to the output directory (`MAKEFUN_OUTPUT_DIR`, or `/output` by default) and
-writes `dossier.json` there using the vendored make.fun library in
-`vendor/makefun-app.ts`:
+`main.ts` (Node 22, standard library only) delivers the entry: it copies
+`app/` and `screenshots/` into the output directory and writes `dossier.json`
+with the vendored make.fun library in `vendor/makefun-app.ts`, then rebuilds
+the dossier from the copies and fails if it differs by a single byte.
 
 ```sh
 MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
+`screenshots/` holds four JPEGs taken from the real running app: an exported
+1920×1080 cover, the editor with a photo loaded and a panel selected, and
+exported covers at 1080×1350 and 1080×1080.
+
 ## Credits
 
-- **Anton** and **Pacifico** typefaces, used under the SIL Open Font License
-  1.1; the license texts ship beside the font files in `app/fonts/`.
-- Sample photos in `app/samples/` were generated with an image model for this
-  project and are free to use.
-- All artwork, layout and lettering in the app are original to this project.
-
-## License
-
-MIT — see `LICENSE`.
+- **Anton** (display face) and **Pacifico** (script face) are used under the
+  SIL Open Font License 1.1; the font files and their license texts live in
+  `app/fonts/` (`Anton-OFL.txt`, `Pacifico-OFL.txt`).
+- The four sample photos in `app/samples/` were generated with an image model
+  for this entry and are free to use.
+- This project is released under the MIT License — see `LICENSE`.
