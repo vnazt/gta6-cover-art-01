@@ -6,7 +6,7 @@ NV.FONT_DEFS = [
   { family: 'Anton', url: 'fonts/Anton-Regular.ttf', weight: '400' },
   { family: 'Pacifico', url: 'fonts/Pacifico-Regular.ttf', weight: '400' },
   { family: 'Kaushan Script', url: 'fonts/KaushanScript-Regular.ttf', weight: '400' },
-  { family: 'Teko', url: 'fonts/Teko%5Bwght%5D.ttf', weight: '300 700' },
+  { family: 'Teko', url: 'fonts/Teko-Regular.ttf', weight: '300 700' },
 ];
 
 NV.loadFonts = function () {
