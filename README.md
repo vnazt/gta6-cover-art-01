@@ -1,74 +1,87 @@
+# Neon Vice Cover Studio
+
 [![make.fun · gta6-cover-art-01](https://make.fun/badge/gta6-cover-art-01.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
 [![rank](https://make.fun/badge/gta6-cover-art-01/vnazt/gta6-cover-art-01/rank.svg)](https://make.fun/bounty/gta6-cover-art-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
 [![reward](https://make.fun/badge/gta6-cover-art-01/vnazt/gta6-cover-art-01/reward.svg)](https://make.fun/bounty/gta6-cover-art-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-cover-art-01)
 
-# Neon Vice Cover Studio
+**Neon Vice Cover Studio** turns your own photos into a multi-panel,
+sunset-chrome movie-poster cover and exports it as a PNG. It is a static web
+app that runs entirely offline in a desktop browser — your photos are read on
+your own machine and are never uploaded.
 
-An offline web app that turns your own photos and a caption into GTA 6-style
-multi-panel cover art — the iconic poster look with cream panel gutters, a
-Vice City sunset-or-neon colour grade, bold display lettering with a neon
-script flourish, and a one-click PNG export in the sizes people actually post.
-
-Open the app, and a finished cover is already on screen: the four bundled
-sample photos fill the panels. Swap in your own photos, drag them into place,
-pick a grade, type your caption, export. From first click to a shareable PNG
-takes well under a minute, and nothing ever leaves your machine — the app
-makes no network requests at all.
+Entered in the make.fun bounty
+[**Make GTA 6 Cover Art**](https://make.fun/bounty/gta6-cover-art-01)
+(gta6-cover-art-01).
 
 ## What it does
 
-- **Five multi-panel layouts** — Hero Split, Classic Five, Triptych, Quad
-  Grid and Cover Story — drawn as printed plates with cream gutters.
-- **Any photo, placed your way** — add photos from your machine (file picker
-  or drag-and-drop anywhere on the page), click a thumbnail to drop it into
-  the selected panel, then drag inside the panel to reposition and scroll to
-  zoom. A spread mode stretches one photo continuously across every panel.
-- **Five colour grades** — Vice Sunset, Neon Nights and Golden Hour are
-  gradient-map grades (teal-to-pink, blue-to-magenta-to-cyan, amber-to-cream);
-  Poster Ink is a five-step posterized duotone; Clean Print is a gentle
-  saturation-and-contrast lift. A strength slider blends each grade to taste.
-- **Poster lettering** — a letterspaced kicker centred over the art, a neon
-  script word glowing over a big gradient-filled title with a black outline
-  and hard offset shadow, plus an original star badge ("EST. 2026"), film
-  grain and a vignette. All three text lines are editable.
-- **Exports that fit the feed** — PNG at 1920×1080, 1080×1350 or 1080×1080,
-  rendered fresh at full resolution on every export.
-- **Original throughout** — every drawing, word and layout is this project's
-  own. No Rockstar Games logos, wordmarks, artwork, characters or fonts.
+Three steps: add photos, pick a layout, export.
+
+1. **Add photos.** Six AI-generated sample photos load automatically; add
+   your own from disk and click a photo to drop it into the selected panel.
+   With one photo, every panel can take a different crop of it.
+2. **Pick a layout and a look.** Seven layouts — Key Art Slash (a big hero
+   panel with slanted, cream-framed panels), Hero Mosaic, Slash Trio, Six
+   Grid, Strip Five, Postcards and Full Bleed — and six grades (Sunset
+   Chrome, Neon Night, Golden Hour, Tropic Teal, Heatwave, Ultraviolet),
+   plus a Poster Ink finish (posterized paint with ink-darkened edges), sky
+   glow, halftone and grain, all driven from one canvas renderer so the
+   preview is the export, pixel for pixel.
+3. **Export** a PNG at 1920×1080, 1080×1350 or 1080×1080, or all three.
+
+The cover dressing is pure poster craft, all of it editable and toggleable:
+
+- a huge title in horizontal-stripe chrome (four title styles) with a 3D
+  extrusion and sparkles, a neon script line overlapping it, and a letterspaced
+  tagline ribbon;
+- a five-star press quote from a fictional gazette above the title;
+- slanted cast name tags and circled numbers on the panels (never over a
+  face — tags hug the panel's bottom edge);
+- a gold "Original Cover Art" seal, a VICE pill badge and a VOL. 1 tag;
+- a palm-silhouette sunset band with a neon COMING SOON line, and a billing
+  block with a barcode at the bottom.
+
+Per panel you can pan the crop by dragging, zoom, flip, swap photos between
+panels, rename the cast tag, and use **Mark face**: click a face and the crop
+re-centers on it. A frame-break toggle lets the hero photo spill past its
+frame over its neighbours. A small API is exposed for scripting:
+`window.coverStudio.setLayout(name)`, `.setGrade(name)`, `.setCaption(obj)`,
+`.exportPNG(w, h)` (returns a data URL) and `.getState()`.
+
+The design is our own: original lettering, layouts and effects, and no logos,
+artwork, fonts or names from any game.
 
 ## Run it
 
-The app is plain static files under `app/` — no build step. Serve the folder
-with any static server and open it in a desktop browser, for example:
+Any static file server works, for example:
 
 ```sh
-python3 -m http.server 8080 --directory app
-# then visit http://localhost:8080
+npx serve app
+# or
+python3 -m http.server -d app 8080
 ```
 
-Opening `app/index.html` directly from disk works too. Photos are read
-locally with the FileReader API and are never uploaded anywhere.
+then open the page in a desktop browser. Opening `app/index.html` directly
+from disk also works. There is no build step and nothing is fetched from the
+network.
 
-## Hand it in
-
-`main.ts` (Node 22, standard library only) delivers the entry: it copies
-`app/` and `screenshots/` into the output directory and writes `dossier.json`
-with the vendored make.fun library in `vendor/makefun-app.ts`, then rebuilds
-the dossier from the copies and fails if it differs by a single byte.
+The make.fun entry program at the repo root copies `app/` and `screenshots/`
+to the output directory and writes `dossier.json` with the vendored
+`buildDossier`:
 
 ```sh
-MAKEFUN_OUTPUT_DIR=out node main.ts
+MAKEFUN_OUTPUT_DIR=/output node main.ts
 ```
-
-`screenshots/` holds four JPEGs taken from the real running app: an exported
-1920×1080 cover, the editor with a photo loaded and a panel selected, and
-exported covers at 1080×1350 and 1080×1080.
 
 ## Credits
 
-- **Anton** (display face) and **Pacifico** (script face) are used under the
-  SIL Open Font License 1.1; the font files and their license texts live in
-  `app/fonts/` (`Anton-OFL.txt`, `Pacifico-OFL.txt`).
-- The four sample photos in `app/samples/` were generated with an image model
-  for this entry and are free to use.
-- This project is released under the MIT License — see `LICENSE`.
+- Fonts, all under the SIL Open Font License (license files beside them in
+  `app/fonts/`): **Anton**, **Kaushan Script**, **Pacifico** and **Teko**,
+  from the Google Fonts project.
+- Sample photos in `app/samples/` are AI-generated; every person in them is
+  fictional.
+- `vendor/makefun-app.ts` is make.fun's dossier library, vendored unchanged.
+
+## License
+
+MIT — see `LICENSE`.
