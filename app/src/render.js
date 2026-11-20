@@ -495,8 +495,9 @@ NV.drawTag = function (ctx, geo, panel, idx, W, H, dress) {
       return;
     }
     if (dress.ribbonRect && rectsOverlap(rect, dress.ribbonRect)) {
-      var below = dress.ribbonRect.y + dress.ribbonRect.h + H * 0.006;
-      var above = dress.ribbonRect.y - tagH - H * 0.006;
+      var gap = dress.ribbonGap || H * 0.006;
+      var below = dress.ribbonRect.y + dress.ribbonRect.h + gap;
+      var above = dress.ribbonRect.y - tagH - gap;
       if (below + tagH <= bb.y + bb.h - H * 0.006) y = below;
       else if (above >= bb.y + H * 0.008) y = above;
       rect.y = y;
@@ -875,6 +876,10 @@ NV.renderCover = function (ctx, W, H, opts) {
     titleRect: { x: W * 0.03, y: titleTop, w: W * 0.94, h: titleSize * 1.30 },
     ribbonRect: NV.taglineRect(ctx, W, H, st, taglineY),
   };
+  // Landscape Key Art Slash: the bottom-middle panel's tag can only clear
+  // the tagline ribbon from below, in the narrow slot between the ribbon
+  // and the palm band — give it a fuller gap so the two never read as one.
+  if (st.layout === 'Key Art Slash' && W / H >= 1.15) dress.ribbonGap = H * 0.012;
 
   // panel name tags + numbers (crisp, above the texture; the quote and
   // title are drawn after them, so the dressing always wins an overlap)
