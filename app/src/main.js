@@ -21,6 +21,7 @@ NV.loadFonts = function () {
   });
   // also explicitly warm the weights the canvas uses
   jobs.push(document.fonts.load('40px Anton').catch(function () {}));
+  jobs.push(document.fonts.load('30px Pacifico').catch(function () {}));
   jobs.push(document.fonts.load('600 30px Teko').catch(function () {}));
   jobs.push(document.fonts.load('30px "Kaushan Script"').catch(function () {}));
   return Promise.all(jobs);
